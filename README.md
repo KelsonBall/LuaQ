@@ -132,6 +132,14 @@ Skip, Take
     local q = query{1, 2, 3, 4}:skip(1) -- [2, 3, 4]
 
     local q = query{1, 2, 3, 4}:take(1) -- [1]
+    -- note, this query returns a query of length 1, not the number 1
+
+    local q = query{1, 2, 3, 4}:skip(1):take(1) -- [2, 3]
+
+    local q = query(query.range(1,10)):skip(2):take(1):skip(2):take(1) -- [3, 6]
+
+
+
 
 
 

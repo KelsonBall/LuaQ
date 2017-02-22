@@ -202,11 +202,26 @@ function query:aggregate(merge, init)
 end
 
 function query:toDictionary(keySelector, valueSelector)
-    error("not implemented")
+    local valueSelector = valueSelector or (function(v) return v end)
+    local dict = {}
+    local iter = self.list()
+    local result = iter()
+    while result ~= nil do
+        dict[keySelector(result)] = valueSelector(result)
+        result = iter()
+    end
+    return dict
 end
 
 function query:toTable()
-    error("not implemented")
+    local resultTable = {}
+    local iter = self.list()
+    local result = iter()
+    while result ~= nil do
+        resultTable[#resultTable + 1] = result
+        result = iter()
+    end
+    return resultTable
 end
 
 function query.range(from, to)
